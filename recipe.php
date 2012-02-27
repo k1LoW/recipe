@@ -60,7 +60,10 @@ class RecipeShellDispatcher extends ShellDispatcher {
         App::uses('Shell', 'Console');
         App::uses('AppShell', 'Console/Command');
 
-        require_once('RecipeShell.php'); // debug
+        $url = 'https://raw.github.com/k1LoW/recipe/master/RecipeShell.php';
+        $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'RecipeShell.php;';
+        exec($cmd);
+        require TMP . 'RecipeShell.php';
 
         $Shell = new RecipeShell();
         return $Shell;
