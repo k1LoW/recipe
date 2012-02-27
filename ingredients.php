@@ -135,4 +135,11 @@ $ingredients = array(
                                                'archive' => RECIPE_ARCHIVE_TARBALL,
                                                'tarballName' => 'hiromi2424-Collectionable-*',
                                                ),
+                     'transition' =>  array('name' => 'TransitionComponent',
+                                            'description' => 'Transition Component',
+                                            'author' => 'hiromi2424',
+                                            'type' => RECIPE_TYPE_COMPONENT,
+                                            'url' => 'https://raw.github.com/hiromi2424/TransitionComponent/cake2/controllers/components/transition.php',
+                                            'archive' => RECIPE_ARCHIVE_FILE,
+                                            ),
                      );

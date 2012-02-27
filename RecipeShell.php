@@ -1,6 +1,14 @@
 <?php
 App::uses('Shell', 'Console');
 
+// recipe type
+define('RECIPE_TYPE_PLUGIN', 'plugin');
+define('RECIPE_TYPE_COMPONENT', 'component');
+
+// recipe archive
+define('RECIPE_ARCHIVE_TARBALL', 'tarball');
+define('RECIPE_ARCHIVE_FILE', 'file');
+
 class RecipeShell extends Shell {
 
     public $tasks = array();
@@ -15,8 +23,6 @@ class RecipeShell extends Shell {
      */
     public function startup(){
         parent::startup();
-        define('RECIPE_TYPE_PLUGIN', 'plugin');
-        define('RECIPE_ARCHIVE_TARBALL', 'tarball');
     }
 
     /**
@@ -167,20 +173,14 @@ class RecipeShell extends Shell {
      *
      */
     private function install($key){
-        $url = $this->ingredients[$key]['url'];
-        $type = $this->ingredients[$key]['type'];
         $archive = $this->ingredients[$key]['archive'];
-        $pluginName = $this->ingredients[$key]['pluginName'];
-
-        $pluginPath = APP . DS . 'Plugin' . DS;
 
         switch ($archive) {
         case RECIPE_ARCHIVE_TARBALL:
-            $filename = 'temp.tar.gz';
-            $tarballName = $this->ingredients[$key]['tarballName'];
-            $cmd = 'cd ' . $pluginPath . ';wget ' . $url . ' --no-check-certificate -O ' . $filename . ';tar zxvf ' . $filename . ';mv ' . $tarballName . ' ' . $pluginName . ';';
-            exec($cmd);
-            unlink($pluginPath . $filename);
+            $this->_tarball($key);
+            break;
+        case RECIPE_ARCHIVE_FILE:
+            $this->_file($key);
             break;
         default:
             break;
@@ -189,19 +189,65 @@ class RecipeShell extends Shell {
         $this->_stop();
     }
 
+    /**
+     * _tarball
+     *
+     */
+    private function _tarball($key){
+        $name = $this->ingredients[$key]['name'];
+        $url = $this->ingredients[$key]['url'];
+        $type = $this->ingredients[$key]['type'];
+        $archive = $this->ingredients[$key]['archive'];
+        $pluginPath = APP . DS . 'Plugin' . DS;
+        $componentPath = APP . DS . 'Controller/Component' . DS;
+
+        switch($type) {
+        case RECIPE_TYPE_PLUGIN:
+            $fileName = 'temp.tar.gz';
+            $pluginName = $name;
+            $tarballName = $this->ingredients[$key]['tarballName'];
+            $cmd = 'cd ' . $pluginPath . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
+            exec($cmd);
+            unlink($pluginPath . $fileName);
+            break;
+        }
+    }
+
+    /**
+     * _file
+     *
+     */
+    private function _file($key){
+        $name = $this->ingredients[$key]['name'];
+        $url = $this->ingredients[$key]['url'];
+        $type = $this->ingredients[$key]['type'];
+        $archive = $this->ingredients[$key]['archive'];
+        $pluginPath = APP . DS . 'Plugin' . DS;
+        $componentPath = APP . DS . 'Controller/Component' . DS;
+
+        switch($type) {
+        case RECIPE_TYPE_COMPONENT:
+            $filePath = $componentPath . $name. '.php';
+            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
+            exec($cmd);
+            unlink($fileName);
+            break;
+        }
+    }
+
     public function getOptionParser() {
         $name = $this->name;
         $parser = new ConsoleOptionParser($name, false);
         $parser->addOption('recipe', array(
-                                         'short' => 'r',
-                                         'help' => __d('cake_console', 'Set recipe file'),
-                                         'boolean' => true
-                                         ));
+                                           'short' => 'r',
+                                           'help' => __d('cake_console', 'Set recipe file'),
+                                           'boolean' => true
+                                           ));
         $parser->addOption('ingredients', array(
-                                         'short' => 'i',
-                                         'help' => __d('cake_console', 'Set ingredients file'),
-                                         'boolean' => true
-                                         ));
+                                                'short' => 'i',
+                                                'help' => __d('cake_console', 'Set ingredients file'),
+                                                'boolean' => true
+                                                ));
         return $parser;
     }
 
@@ -213,4 +259,4 @@ class RecipeShell extends Shell {
     public function help() {
 
     }
-  }
+}
