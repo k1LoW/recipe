@@ -130,9 +130,9 @@ $ingredients = array(
                                                'description' => 'Collectionable Plugin',
                                                'author' => 'hiromi2424',
                                                'type' => RECIPE_TYPE_PLUGIN,
-                                               'url' => 'https://github.com/hiromi2424/collectionable/tarball/cake2',
+                                               'url' => 'https://github.com/hiromi2424/Collectionable/tarball/cake2',
                                                'pluginName' => 'Collectionable',
                                                'archive' => RECIPE_ARCHIVE_TARBALL,
-                                               'tarballName' => 'hiromi2424-yak-*',
+                                               'tarballName' => 'hiromi2424-Collectionable-*',
                                                ),
                      );
