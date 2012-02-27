@@ -149,6 +149,7 @@ class RecipeShell extends Shell {
     private function choice($key){
         $this->hr();
         $this->out('Package Name:' . $this->ingredients[$key]['name']);
+        $this->out('Author      :' . $this->ingredients[$key]['author']);
         $this->out('Description :' . $this->ingredients[$key]['description']);
         $this->out('URL         :' . $this->ingredients[$key]['url']);
         $this->hr();
