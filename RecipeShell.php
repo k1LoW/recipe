@@ -5,6 +5,8 @@ class RecipeShell extends Shell {
 
     public $tasks = array();
     public $results;
+    public $recipePath;
+    public $ingredientsPath;
 
     /**
      * startup
@@ -79,7 +81,10 @@ class RecipeShell extends Shell {
         if($this->ingredientsPath) {
             require $this->ingredientsPath;
         } else {
-            require 'ingredients.php'; // debug
+            $url = 'https://raw.github.com/k1LoW/recipe/master/ingredients.php';
+            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'ingredients.php;';
+            exec($cmd);
+            require TMP . 'ingredients.php';
         }
 
         $this->ingredients = $ingredients;
