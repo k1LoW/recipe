@@ -230,7 +230,6 @@ class RecipeShell extends Shell {
             $filePath = $componentPath . $name. '.php';
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
             exec($cmd);
-            unlink($fileName);
             break;
         }
     }
