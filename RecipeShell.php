@@ -12,6 +12,8 @@ define('RECIPE_ARCHIVE_FILE', 'file');
 class RecipeShell extends Shell {
 
     public $tasks = array();
+    public $ingredients;
+    public $recipe;
     public $results;
     public $recipePath;
     public $ingredientsPath;
@@ -22,6 +24,30 @@ class RecipeShell extends Shell {
      * @return
      */
     public function startup(){
+        foreach ($this->params as $key => $value) {
+            switch($key) {
+            case 'recipe':
+                if ($value) {
+                    $this->recipePath = array_shift($this->args);
+                }
+                break;
+            }
+        }
+
+        if($this->recipePath) {
+            require $this->recipePath;
+        } else {
+            $url = 'https://raw.github.com/k1LoW/recipe/master/ingredients.php';
+            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'ingredients.php;';
+            exec($cmd);
+            require TMP . 'ingredients.php';
+        }
+
+        $this->ingredients = $ingredients;
+        if (isset($recipe)) {
+            $this->recipe = $recipe;
+        }
+
         parent::startup();
     }
 
@@ -31,25 +57,14 @@ class RecipeShell extends Shell {
      * @return
      */
     public function main() {
+        if (!empty($this->recipe)) {
+            // @todo
+        }
+
         $this->out(__d('cake_console', '<info>recipe - CakePHP CLI Package Installer - </info>'));
         $this->hr();
         $this->out(__d('cake_console', '[S]earch Package'));
         $this->out(__d('cake_console', '[Q]uit'));
-
-        foreach ($this->params as $key => $value) {
-            switch($key) {
-            case 'recipe':
-                if ($value) {
-                    $this->recipePath = array_shift($this->args);
-                }
-                break;
-            case 'ingredients':
-                if ($value) {
-                    $this->ingredientsPath = array_shift($this->args);
-                }
-                break;
-            }
-        }
 
         $choice = strtoupper($this->in(__d('cake_console', 'What would you like to do?'), array('S', 'Q')));
         switch ($choice) {
@@ -84,16 +99,6 @@ class RecipeShell extends Shell {
             }
         }
 
-        if($this->ingredientsPath) {
-            require $this->ingredientsPath;
-        } else {
-            $url = 'https://raw.github.com/k1LoW/recipe/master/ingredients.php';
-            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'ingredients.php;';
-            exec($cmd);
-            require TMP . 'ingredients.php';
-        }
-
-        $this->ingredients = $ingredients;
         $this->results = array();
         foreach ($this->ingredients as $key => $value) {
             if (preg_match('/' . strtolower($response) . '/', $key)) {
@@ -243,11 +248,6 @@ class RecipeShell extends Shell {
                                            'help' => __d('cake_console', 'Set recipe file'),
                                            'boolean' => true
                                            ));
-        $parser->addOption('ingredients', array(
-                                                'short' => 'i',
-                                                'help' => __d('cake_console', 'Set ingredients file'),
-                                                'boolean' => true
-                                                ));
         return $parser;
     }
 
