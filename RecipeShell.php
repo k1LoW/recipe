@@ -25,7 +25,7 @@ class RecipeShell extends Shell {
      * @return
      */
     public function main() {
-        $this->out(__d('cake_console', '<info>Recipe - CakePHP Package Installer - </info>'));
+        $this->out(__d('cake_console', '<info>recipe - CakePHP CLI Package Installer - </info>'));
         $this->hr();
         $this->out(__d('cake_console', '[S]earch Package'));
         $this->out(__d('cake_console', '[Q]uit'));
