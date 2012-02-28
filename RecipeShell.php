@@ -1,5 +1,6 @@
 <?php
 App::uses('Shell', 'Console');
+App::uses('Set', 'Utility');
 
 // recipe type
 define('RECIPE_TYPE_PLUGIN', 'plugin');
@@ -31,6 +32,9 @@ class RecipeShell extends Shell {
                     $this->recipePath = array_shift($this->args);
                 }
                 break;
+            case 'help':
+                $this->help();
+                break;
             }
         }
 
@@ -54,28 +58,40 @@ class RecipeShell extends Shell {
     }
 
     /**
+     * _welcome
+     *
+     */
+    protected function _welcome(){
+        $this->out();
+        $this->out(__d('cake_console', '<info>recipe - CakePHP CLI Package Installer - </info>'));
+        $this->out();
+        $this->hr();
+    }
+
+    /**
      * main
      *
      * @return
      */
     public function main() {
         if (!empty($this->recipe)) {
-            $this->hr();
-            $this->out(__d('cake_console', 'recipe install'));
+            $this->out(__d('cake_console', 'recipe install start'));
             foreach ($this->recipe as $key => $value) {
                 if (is_numeric($key)) {
                     $this->install($value);
                 } else {
+                    if (isset($this->ingredients[$key])) {
+                        $this->ingredients[$key] = Set::merge($this->ingredients[$key], $value);
+                    }
                     $this->install($key);
                 }
             }
+            $this->hr();
             $this->out(__d('cake_console', 'recipe install complete.'));
             $this->hr();
             $this->_stop();
         }
 
-        $this->out(__d('cake_console', '<info>recipe - CakePHP CLI Package Installer - </info>'));
-        $this->hr();
         $this->out(__d('cake_console', '[S]earch Package'));
         $this->out(__d('cake_console', '[Q]uit'));
 
@@ -99,7 +115,7 @@ class RecipeShell extends Shell {
      * search
      *
      */
-    private function search(){
+    protected function search(){
         $response = '';
         while ($response == '') {
             $example = "search";
@@ -133,7 +149,7 @@ class RecipeShell extends Shell {
      * select
      *
      */
-    private function select(){
+    protected function select(){
         $this->hr();
         $this->out(__d('cake_console', 'Search result'));
         $this->hr();
@@ -164,7 +180,7 @@ class RecipeShell extends Shell {
      * choice
      *
      */
-    private function choice($key){
+    protected function choice($key){
         $this->hr();
         $this->out('Package Name:' . $this->ingredients[$key]['name']);
         $this->out('Author      :' . $this->ingredients[$key]['author']);
@@ -192,7 +208,7 @@ class RecipeShell extends Shell {
      * install
      *
      */
-    private function install($key){
+    protected function install($key){
         if (!isset($this->ingredients[$key])) {
             $this->out(__d('cake_console', 'Can not find package.'));
             return;
@@ -298,6 +314,5 @@ class RecipeShell extends Shell {
      *
      */
     public function help() {
-
     }
 }
