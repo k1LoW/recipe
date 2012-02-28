@@ -4,6 +4,7 @@ App::uses('Shell', 'Console');
 // recipe type
 define('RECIPE_TYPE_PLUGIN', 'plugin');
 define('RECIPE_TYPE_COMPONENT', 'component');
+define('RECIPE_TYPE_PLAIN', 'plain');
 
 // recipe archive
 define('RECIPE_ARCHIVE_TARBALL', 'tarball');
@@ -205,9 +206,8 @@ class RecipeShell extends Shell {
             $this->__tarball($key);
             break;
         case RECIPE_ARCHIVE_FILE:
-            $this->__file($key);
-            break;
         default:
+            $this->__file($key);
             break;
         }
         $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' complete.'));
@@ -233,6 +233,20 @@ class RecipeShell extends Shell {
             exec($cmd);
             unlink($installDir . $fileName);
             break;
+        case RECIPE_TYPE_PLAIN:
+        default:
+            $installDir = empty($this->ingredients[$key]['installDir']) ? '' : $this->ingredients[$key]['installDir'];
+            if (empty($installDir)) {
+                $this->out(__d('cake_console', 'Invalid installDir option.'));
+                return;
+            }
+            $fileName = 'temp.tar.gz';
+            $pluginName = $name;
+            $tarballName = $this->ingredients[$key]['tarballName'];
+            $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
+            exec($cmd);
+            unlink($installDir . $fileName);
+            break;
         }
     }
 
@@ -249,7 +263,18 @@ class RecipeShell extends Shell {
         switch($type) {
         case RECIPE_TYPE_COMPONENT:
             $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Controller/Component' . DS : $this->ingredients[$key]['installDir'];
-            $filePath = $installDir . $name. '.php';
+            $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
+            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
+            exec($cmd);
+            break;
+        case RECIPE_TYPE_PLAIN:
+        default:
+            $installDir = empty($this->ingredients[$key]['installDir']) ? '' : $this->ingredients[$key]['installDir'];
+            if (empty($installDir)) {
+                $this->out(__d('cake_console', 'Invalid installDir option.'));
+                return;
+            }
+            $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
             exec($cmd);
             break;

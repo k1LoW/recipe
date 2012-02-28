@@ -144,4 +144,12 @@ $ingredients = array(
                                       'archive' => RECIPE_ARCHIVE_TARBALL,
                                       'tarballName' => 'hiromi2424-ninja-*',
                                       ),
+                     'debuglib' => array('name' => 'debuglib.php',
+                                         'description' => 'debuglib: See what\'s going on inside your PHP variables!',
+                                         'author' => 'Schüßler',
+                                         'type' => RECIPE_TYPE_PLAIN,
+                                         'url' => 'http://phpdebuglib.de/debuglib.php',
+                                         'archive' => RECIPE_ARCHIVE_FILE,
+                                         'installDir' => APP . 'Vendor/',
+                                      ),
                      );
