@@ -15,7 +15,7 @@
 Set package list by `$ingredients`.
 
 Make php script `myrecipe.php` like [ingredients.php](https://raw.github.com/k1LoW/recipe/master/ingredients.php),
-and execute `php recipe.php -r myrecipe.php`. So you can select your packagelist.
+and execute `php recipe.php -r myrecipe.php`. So you can select your package list.
 
 ### $recipe ###
 
