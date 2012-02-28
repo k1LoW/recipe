@@ -14,7 +14,7 @@
 
 Set package list by `$ingredients`.
 
-Make follow php script `myrecipe.php` like [ingredients.php](https://raw.github.com/k1LoW/recipe/master/ingredients.php),
+Make php script `myrecipe.php` like [ingredients.php](https://raw.github.com/k1LoW/recipe/master/ingredients.php),
 and execute `php recipe.php -r myrecipe.php`. So you can select your packagelist.
 
 ### $recipe ###
@@ -22,6 +22,7 @@ and execute `php recipe.php -r myrecipe.php`. So you can select your packagelist
 Select install packages in advance by `$recipe`.
 
 Make follow php script `myrecipe.php`, and execute `php recipe.php -r myrecipe.php`. So `recipe` install DebugKit, Search and Utils all at once.
+
     <?php
         $recipe = array('debugkit', 'search', 'utils');
 
@@ -30,5 +31,6 @@ Make follow php script `myrecipe.php`, and execute `php recipe.php -r myrecipe.p
 `recipe` support remote recipe (like gist).
 
 example.
-`php recipe.php -r https://gist.github.com/1929041`
+
+`php recipe.php -r https://raw.github.com/gist/1929041/536e6ac9735956d2f69af15e585be3a5907b22d0/myrecipe.php`
 

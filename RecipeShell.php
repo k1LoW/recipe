@@ -255,10 +255,6 @@ class RecipeShell extends Shell {
             $pluginName = $name;
             $tarballName = $this->ingredients[$key]['tarballName'];
 
-            if (file_exists($installDir . $pluginName)) {
-                unlink($installDir . $pluginName);
-            }
-
             $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
             exec($cmd);
             unlink($installDir . $fileName);
@@ -273,10 +269,6 @@ class RecipeShell extends Shell {
             $fileName = 'temp.tar.gz';
             $pluginName = $name;
             $tarballName = $this->ingredients[$key]['tarballName'];
-
-            if (file_exists($installDir . $pluginName)) {
-                unlink($installDir . $pluginName);
-            }
 
             $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
             exec($cmd);
