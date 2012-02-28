@@ -55,7 +55,10 @@ class RecipeShell extends Shell {
             exec($cmd);
             require TMP . 'ingredients.php';
         }
-        $this->ingredients = $ingredients;
+        $this->ingredients = array();
+        foreach ($ingredients as $key => $value) {
+            $this->ingredients[strtolower($key)] = $value;
+        }
 
         if (isset($recipe)) {
             $this->recipe = $recipe;
@@ -86,8 +89,10 @@ class RecipeShell extends Shell {
             $this->out(__d('cake_console', '<info>recipe install start</info>'));
             foreach ($this->recipe as $key => $value) {
                 if (is_numeric($key)) {
+                    $value = strtolower($value);
                     $this->install($value);
                 } else {
+                    $key = strtolower($key);
                     if (isset($this->ingredients[$key])) {
                         $this->ingredients[$key] = Set::merge($this->ingredients[$key], $value);
                     }
