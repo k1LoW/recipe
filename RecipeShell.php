@@ -6,8 +6,8 @@ define('RECIPE_TYPE_PLUGIN', 'plugin');
 define('RECIPE_TYPE_COMPONENT', 'component');
 
 // recipe archive
-define('RECIPE_ARCHIVE__TARBALL', 'tarball');
-define('RECIPE_ARCHIVE__FILE', 'file');
+define('RECIPE_ARCHIVE_TARBALL', 'tarball');
+define('RECIPE_ARCHIVE_FILE', 'file');
 
 class RecipeShell extends Shell {
 
@@ -201,10 +201,10 @@ class RecipeShell extends Shell {
         $archive = $this->ingredients[$key]['archive'];
 
         switch ($archive) {
-        case RECIPE_ARCHIVE__TARBALL:
+        case RECIPE_ARCHIVE_TARBALL:
             $this->__tarball($key);
             break;
-        case RECIPE_ARCHIVE__FILE:
+        case RECIPE_ARCHIVE_FILE:
             $this->__file($key);
             break;
         default:
