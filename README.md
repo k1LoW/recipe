@@ -6,6 +6,10 @@
 2. `php recipe.php`
 3. Search and install package.
 
+example.
+
+`wget https://raw.github.com/k1LoW/recipe/master/recipe.php  --no-check-certificate -O recipe.php && php recipe.php && rm recipe.php`
+
 ## Use Your Recipe ##
 
 `recipe` can use your own recipe!!
