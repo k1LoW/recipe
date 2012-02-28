@@ -25,6 +25,10 @@ Make follow php script `myrecipe.php`, and execute `php recipe.php -r myrecipe.p
     <?php
         $recipe = array('debugkit', 'search', 'utils');
 
+### Remote recipe ###
 
+`recipe` support remote recipe (like gist).
 
+example.
+`php recipe.php -r https://gist.github.com/1929041`
 

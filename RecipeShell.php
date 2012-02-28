@@ -39,7 +39,14 @@ class RecipeShell extends Shell {
         }
 
         if($this->recipePath) {
-            require $this->recipePath;
+            if (preg_match('/^http/', $this->recipePath)) {
+                $url = $this->recipePath;
+                $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'myrecipe.php;';
+                exec($cmd);
+                require TMP . 'myrecipe.php';
+            } else {
+                require $this->recipePath;
+            }
         }
 
         if(!isset($ingredients)) {
