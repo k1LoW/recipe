@@ -6,8 +6,8 @@ define('RECIPE_TYPE_PLUGIN', 'plugin');
 define('RECIPE_TYPE_COMPONENT', 'component');
 
 // recipe archive
-define('RECIPE_ARCHIVE_TARBALL', 'tarball');
-define('RECIPE_ARCHIVE_FILE', 'file');
+define('RECIPE_ARCHIVE__TARBALL', 'tarball');
+define('RECIPE_ARCHIVE__FILE', 'file');
 
 class RecipeShell extends Shell {
 
@@ -16,7 +16,6 @@ class RecipeShell extends Shell {
     public $recipe;
     public $results;
     public $recipePath;
-    public $ingredientsPath;
 
     /**
      * startup
@@ -36,14 +35,16 @@ class RecipeShell extends Shell {
 
         if($this->recipePath) {
             require $this->recipePath;
-        } else {
+        }
+
+        if(!isset($ingredients)) {
             $url = 'https://raw.github.com/k1LoW/recipe/master/ingredients.php';
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'ingredients.php;';
             exec($cmd);
             require TMP . 'ingredients.php';
         }
-
         $this->ingredients = $ingredients;
+
         if (isset($recipe)) {
             $this->recipe = $recipe;
         }
@@ -58,7 +59,18 @@ class RecipeShell extends Shell {
      */
     public function main() {
         if (!empty($this->recipe)) {
-            // @todo
+            $this->hr();
+            $this->out(__d('cake_console', 'recipe install'));
+            foreach ($this->recipe as $key => $value) {
+                if (is_numeric($key)) {
+                    $this->install($value);
+                } else {
+                    $this->install($key);
+                }
+            }
+            $this->out(__d('cake_console', 'recipe install complete.'));
+            $this->hr();
+            $this->_stop();
         }
 
         $this->out(__d('cake_console', '<info>recipe - CakePHP CLI Package Installer - </info>'));
@@ -159,10 +171,11 @@ class RecipeShell extends Shell {
         $this->out('URL         :' . $this->ingredients[$key]['url']);
         $this->hr();
 
-        $choice = strtoupper($this->in(__d('cake_console', 'Install '. $this->ingredients[$key]['name'] .'?'), array('Y', 'N', 'Q')));
+        $choice = strtoupper($this->in(__d('cake_console', 'Install '. $this->ingredients[$key]['name'] .' ?'), array('Y', 'N', 'Q')));
         switch ($choice) {
         case 'Y':
             $this->install($key);
+            $this->_stop();
             break;
         case 'N':
             break;
@@ -179,61 +192,64 @@ class RecipeShell extends Shell {
      *
      */
     private function install($key){
+        if (!isset($this->ingredients[$key])) {
+            $this->out(__d('cake_console', 'Can not find package.'));
+            return;
+        }
+        $this->hr();
+        $this->out(__d('cake_console', 'Installing ' . $this->ingredients[$key]['name'] . ' ...'));
         $archive = $this->ingredients[$key]['archive'];
 
         switch ($archive) {
-        case RECIPE_ARCHIVE_TARBALL:
-            $this->_tarball($key);
+        case RECIPE_ARCHIVE__TARBALL:
+            $this->__tarball($key);
             break;
-        case RECIPE_ARCHIVE_FILE:
-            $this->_file($key);
+        case RECIPE_ARCHIVE__FILE:
+            $this->__file($key);
             break;
         default:
             break;
         }
-        $this->out(__d('cake_console', 'Install complete.'));
-        $this->_stop();
+        $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' complete.'));
     }
 
     /**
-     * _tarball
+     * __tarball
      *
      */
-    private function _tarball($key){
+    private function __tarball($key){
         $name = $this->ingredients[$key]['name'];
         $url = $this->ingredients[$key]['url'];
         $type = $this->ingredients[$key]['type'];
         $archive = $this->ingredients[$key]['archive'];
-        $pluginPath = APP . DS . 'Plugin' . DS;
-        $componentPath = APP . DS . 'Controller/Component' . DS;
 
         switch($type) {
         case RECIPE_TYPE_PLUGIN:
+            $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Plugin' . DS : $this->ingredients[$key]['installDir'];
             $fileName = 'temp.tar.gz';
             $pluginName = $name;
             $tarballName = $this->ingredients[$key]['tarballName'];
-            $cmd = 'cd ' . $pluginPath . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
+            $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
             exec($cmd);
-            unlink($pluginPath . $fileName);
+            unlink($installDir . $fileName);
             break;
         }
     }
 
     /**
-     * _file
+     * __file
      *
      */
-    private function _file($key){
+    private function __file($key){
         $name = $this->ingredients[$key]['name'];
         $url = $this->ingredients[$key]['url'];
         $type = $this->ingredients[$key]['type'];
         $archive = $this->ingredients[$key]['archive'];
-        $pluginPath = APP . DS . 'Plugin' . DS;
-        $componentPath = APP . DS . 'Controller/Component' . DS;
 
         switch($type) {
         case RECIPE_TYPE_COMPONENT:
-            $filePath = $componentPath . $name. '.php';
+            $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Controller/Component' . DS : $this->ingredients[$key]['installDir'];
+            $filePath = $installDir . $name. '.php';
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
             exec($cmd);
             break;
