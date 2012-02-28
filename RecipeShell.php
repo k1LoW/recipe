@@ -62,6 +62,7 @@ class RecipeShell extends Shell {
      *
      */
     protected function _welcome(){
+        $this->hr();
         $this->out();
         $this->out(__d('cake_console', '<info>recipe - CakePHP CLI Package Installer - </info>'));
         $this->out();
@@ -75,7 +76,7 @@ class RecipeShell extends Shell {
      */
     public function main() {
         if (!empty($this->recipe)) {
-            $this->out(__d('cake_console', 'recipe install start'));
+            $this->out(__d('cake_console', '<info>recipe install start</info>'));
             foreach ($this->recipe as $key => $value) {
                 if (is_numeric($key)) {
                     $this->install($value);
@@ -87,7 +88,7 @@ class RecipeShell extends Shell {
                 }
             }
             $this->hr();
-            $this->out(__d('cake_console', 'recipe install complete.'));
+            $this->out(__d('cake_console', '<info>recipe install complete.</info>'));
             $this->hr();
             $this->_stop();
         }
@@ -101,7 +102,7 @@ class RecipeShell extends Shell {
             $this->search();
             break;
         case 'Q':
-            $this->out(__d('cake_console', 'Aborted.'));
+            $this->out(__d('cake_console', 'Quit.'));
             $this->_stop();
             break;
         default:
@@ -123,7 +124,7 @@ class RecipeShell extends Shell {
                                   . $example
                                   . "\n[Q]uit", null, $example);
             if (strtoupper($response) === 'Q') {
-                $this->out(__d('cake_console', 'Aborted.'));
+                $this->out(__d('cake_console', 'Quit.'));
                 $this->_stop();
             }
         }
@@ -166,7 +167,7 @@ class RecipeShell extends Shell {
                                   . $example
                                   . "\n[Q]uit", null, $example);
             if (strtoupper($response) === 'Q') {
-                $this->out(__d('cake_console', 'Aborted.'));
+                $this->out(__d('cake_console', 'Quit.'));
                 $this->_stop();
             }
             if (isset($this->results[$response])) {
@@ -197,7 +198,7 @@ class RecipeShell extends Shell {
         case 'N':
             break;
         case 'Q':
-            $this->out(__d('cake_console', 'Aborted.'));
+            $this->out(__d('cake_console', 'Quit.'));
             $this->_stop();
         default:
             $this->out(__d('cake_console', 'You have made an invalid selection. Please choose a command to execute by entering Y, N or Q.'));
@@ -210,11 +211,11 @@ class RecipeShell extends Shell {
      */
     protected function install($key){
         if (!isset($this->ingredients[$key])) {
-            $this->out(__d('cake_console', 'Can not find package.'));
+            $this->out(__d('cake_console', '<error>Can not find package.</error>'));
             return;
         }
         $this->hr();
-        $this->out(__d('cake_console', 'Installing ' . $this->ingredients[$key]['name'] . ' ...'));
+        $this->out(__d('cake_console', '<comment>Installing ' . $this->ingredients[$key]['name'] . ' ...</comment>'));
         $archive = $this->ingredients[$key]['archive'];
 
         switch ($archive) {
@@ -226,7 +227,8 @@ class RecipeShell extends Shell {
             $this->__file($key);
             break;
         }
-        $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' complete.'));
+        $this->out(__d('cake_console', '<comment>Install ' . $this->ingredients[$key]['name'] . ' complete.</comment>'));
+        $this->out();
     }
 
     /**
@@ -253,7 +255,7 @@ class RecipeShell extends Shell {
         default:
             $installDir = empty($this->ingredients[$key]['installDir']) ? '' : $this->ingredients[$key]['installDir'];
             if (empty($installDir)) {
-                $this->out(__d('cake_console', 'Invalid installDir option.'));
+                $this->out(__d('cake_console', '<error>Invalid installDir option.</error>'));
                 return;
             }
             $fileName = 'temp.tar.gz';
@@ -287,7 +289,7 @@ class RecipeShell extends Shell {
         default:
             $installDir = empty($this->ingredients[$key]['installDir']) ? '' : $this->ingredients[$key]['installDir'];
             if (empty($installDir)) {
-                $this->out(__d('cake_console', 'Invalid installDir option.'));
+                $this->out(__d('cake_console', '<error>Invalid installDir option.</error>'));
                 return;
             }
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
