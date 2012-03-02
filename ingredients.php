@@ -176,4 +176,12 @@ $ingredients = array(
                                          'archive' => RECIPE_ARCHIVE_FILE,
                                          'installDir' => APP . 'Vendor/',
                                          ),
+                     'cakektailibrary' => array('name' => 'CakeKtaiLibrary',
+                                                'description' => 'Japanese mobile phone plugin for CakePHP',
+                                                'author' => 'ECWorks',
+                                                'type' => RECIPE_TYPE_PLUGIN,
+                                                'url' => 'https://github.com/MASA-P/cake_ktai_library/tarball/0.x-2.x',
+                                                'archive' => RECIPE_ARCHIVE_TARBALL,
+                                                'tarballName' => 'MASA-P-cake_ktai_library-*',
+                                                ),
                      );
