@@ -1,6 +1,8 @@
 <?php
 App::uses('Shell', 'Console');
 App::uses('Set', 'Utility');
+App::uses('File', 'Utility');
+App::uses('Folder', 'Utility');
 
 // recipe type
 define('RECIPE_TYPE_PLUGIN', 'plugin');
@@ -260,6 +262,25 @@ class RecipeShell extends Shell {
             $pluginName = $name;
             $tarballName = $this->ingredients[$key]['tarballName'];
 
+            if (file_exists($installDir . $pluginName) && is_dir($installDir . $pluginName)) {
+                $choice = strtoupper($this->in(__d('cake_console', $installDir . $pluginName . ' already exists, overwrite?'), array('Y', 'N')));
+                switch ($choice) {
+                case 'Y':
+                    break;
+                case 'N':
+                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                    return;
+                    break;
+                default:
+                    $this->out(__d('cake_console', 'You have made an invalid selection. Please choose a command to execute by entering Y or N.'));
+                }
+                $folder = new Folder();
+                if(!$folder->delete($installDir . $pluginName)) {
+                    $this->out(__d('cake_console', '<error>' . implode("\n", $folder->errors()) . '</error>'));
+                    return;
+                }
+            }
+
             $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
             exec($cmd);
             unlink($installDir . $fileName);
@@ -274,6 +295,22 @@ class RecipeShell extends Shell {
             $fileName = 'temp.tar.gz';
             $pluginName = $name;
             $tarballName = $this->ingredients[$key]['tarballName'];
+
+            if (file_exists($installDir . $pluginName) && is_dir($installDir . $pluginName)) {
+                $choice = strtoupper($this->in(__d('cake_console', $installDir . $pluginName . ' already exists, overwrite?'), array('Y', 'N')));
+                switch ($choice) {
+                case 'Y':
+                    break;
+                case 'N':
+                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                    return;
+                    break;
+                }
+                $folder = new Folder();
+                if(!$folder->delete($installDir . $pluginName)) {
+                    $this->out(__d('cake_console', implode("\n", $folder->errors())));
+                }
+            }
 
             $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
             exec($cmd);
@@ -296,6 +333,19 @@ class RecipeShell extends Shell {
         case RECIPE_TYPE_COMPONENT:
             $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Controller/Component' . DS : $this->ingredients[$key]['installDir'];
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
+
+            if (file_exists($filePath) && is_file($filePath)) {
+                $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
+                switch ($choice) {
+                case 'Y':
+                    break;
+                case 'N':
+                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                    return;
+                    break;
+                }
+            }
+
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
             exec($cmd);
             break;
@@ -307,6 +357,19 @@ class RecipeShell extends Shell {
                 return;
             }
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
+
+            if (file_exists($filePath) && is_file($filePath)) {
+                $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
+                switch ($choice) {
+                case 'Y':
+                    break;
+                case 'N':
+                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                    return;
+                    break;
+                }
+            }
+
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
             exec($cmd);
             break;
