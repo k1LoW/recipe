@@ -169,7 +169,11 @@ class RecipeShell extends Shell {
         $this->out(__d('cake_console', 'Search result'));
         $this->hr();
         foreach ($this->results as $key => $value) {
-            $this->out($key . ':' . $value['name']);
+            $name = $value['name'];
+            if (!empty($value['displayName'])) {
+                $name = $value['displayName'];
+            }
+            $this->out($key . ':' . $name);
         }
 
         $this->out();
