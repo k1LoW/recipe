@@ -28,7 +28,7 @@ Select install packages in advance by `$recipe`.
 Make follow php script `myrecipe.php`, and execute `php recipe.php -r myrecipe.php`. So `recipe` install DebugKit, Search and Utils all at once.
 
     <?php
-        $recipe = array('debugkit', 'search', 'utils');
+        $recipe = array('DebugKit', 'Search', 'Utils');
 
 ### Remote recipe ###
 
