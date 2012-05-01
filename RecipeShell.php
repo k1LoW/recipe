@@ -7,6 +7,7 @@ App::uses('Folder', 'Utility');
 // recipe type
 define('RECIPE_TYPE_PLUGIN', 'plugin');
 define('RECIPE_TYPE_COMPONENT', 'component');
+define('RECIPE_TYPE_BEHAVIOR', 'behavior');
 define('RECIPE_TYPE_PLAIN', 'plain');
 
 // recipe archive
@@ -336,6 +337,25 @@ class RecipeShell extends Shell {
         switch($type) {
         case RECIPE_TYPE_COMPONENT:
             $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Controller/Component' . DS : $this->ingredients[$key]['installDir'];
+            $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
+
+            if (file_exists($filePath) && is_file($filePath)) {
+                $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
+                switch ($choice) {
+                case 'Y':
+                    break;
+                case 'N':
+                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                    return;
+                    break;
+                }
+            }
+
+            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
+            exec($cmd);
+            break;
+        case RECIPE_TYPE_BEHAVIOR:
+            $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Model/Behavior' . DS : $this->ingredients[$key]['installDir'];
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
 
             if (file_exists($filePath) && is_file($filePath)) {

@@ -216,4 +216,11 @@ $ingredients = array(
                                         'archive' => RECIPE_ARCHIVE_TARBALL,
                                         'tarballName' => 'ichikaway-cakephp-mongodb-*',
                                         ),
+                     'multivalidatable' =>  array('name' => 'MultivalidatableBehavior',
+                                            'description' => 'MultivalidatableBehavior for CakePHP2.x',
+                                            'author' => 'Sordi',
+                                            'type' => RECIPE_TYPE_BEHAVIOR,
+                                            'url' => 'https://raw.github.com/gist/2565103/629dd6307321b08be5c62fe9e5094591070b48e0/MultivalidatableBehabior.php',
+                                            'archive' => RECIPE_ARCHIVE_FILE,
+                                            ),
                      );
