@@ -223,4 +223,12 @@ $ingredients = array(
                                             'url' => 'https://raw.github.com/gist/2565103/629dd6307321b08be5c62fe9e5094591070b48e0/MultivalidatableBehabior.php',
                                             'archive' => RECIPE_ARCHIVE_FILE,
                                             ),
+                     'exception' => array('name' => 'Exception',
+                                     'description' => 'Exception template for CakePHP',
+                                     'author' => 'k1LoW',
+                                     'type' => RECIPE_TYPE_PLUGIN,
+                                     'url' => 'https://github.com/k1LoW/Exception/tarball/master',
+                                     'archive' => RECIPE_ARCHIVE_TARBALL,
+                                     'tarballName' => 'k1LoW-Exception-*',
+                                     ),
                      );
