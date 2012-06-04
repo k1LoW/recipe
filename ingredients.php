@@ -231,4 +231,12 @@ $ingredients = array(
                                      'archive' => RECIPE_ARCHIVE_TARBALL,
                                      'tarballName' => 'k1LoW-Exception-*',
                                      ),
+                     'fuzzy' => array('name' => 'Fuzzy',
+                                     'description' => 'Fuzzy plugin for CakePHP',
+                                     'author' => 'k1LoW',
+                                     'type' => RECIPE_TYPE_PLUGIN,
+                                     'url' => 'https://github.com/k1LoW/Fuzzy/tarball/master',
+                                     'archive' => RECIPE_ARCHIVE_TARBALL,
+                                     'tarballName' => 'k1LoW-Fuzzy-*',
+                                     ),
                      );
