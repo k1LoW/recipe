@@ -239,4 +239,12 @@ $ingredients = array(
                                      'archive' => RECIPE_ARCHIVE_TARBALL,
                                      'tarballName' => 'k1LoW-Fuzzy-*',
                                      ),
+                     'fatty' => array('name' => 'Fatty',
+                                     'description' => 'Fatty: Simple Git repogitory browser plugin for CakePHP.',
+                                     'author' => 'k1LoW',
+                                     'type' => RECIPE_TYPE_PLUGIN,
+                                     'url' => 'https://github.com/k1LoW/Fatty/tarball/2.0',
+                                     'archive' => RECIPE_ARCHIVE_TARBALL,
+                                     'tarballName' => 'k1LoW-Fatty-*',
+                                     ),
                      );
