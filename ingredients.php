@@ -247,4 +247,12 @@ $ingredients = array(
                                      'archive' => RECIPE_ARCHIVE_TARBALL,
                                      'tarballName' => 'k1LoW-fatty-*',
                                      ),
+                     'query' => array('name' => 'Query',
+                                     'description' => 'Query: Simple SQL client for CakePHP.',
+                                     'author' => 'k1LoW',
+                                     'type' => RECIPE_TYPE_PLUGIN,
+                                     'url' => 'https://github.com/k1LoW/Query/tarball/master',
+                                     'archive' => RECIPE_ARCHIVE_TARBALL,
+                                     'tarballName' => 'k1LoW-Query-*',
+                                     ),
                      );
