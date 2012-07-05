@@ -255,4 +255,12 @@ $ingredients = array(
                                      'archive' => RECIPE_ARCHIVE_TARBALL,
                                      'tarballName' => 'k1LoW-Query-*',
                                      ),
+                     'secured' => array('name' => 'Secured',
+                                        'description' => 'SSL Component',
+                                        'author' => 'hiromi2424',
+                                        'type' => RECIPE_TYPE_PLUGIN,
+                                        'url' => 'https://github.com/hiromi2424/secured/tarball/2.0',
+                                        'archive' => RECIPE_ARCHIVE_TARBALL,
+                                        'tarballName' => 'hiromi2424-secured-*',
+                                     ),
                      );
