@@ -366,7 +366,7 @@ class RecipeShell extends Shell {
             case 'Y':
                 break;
             case 'N':
-                $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                $this->out(__d('cake_console', 'Install ' . $dirPath . ' canceled.'));
                 return false;
                 break;
             }
