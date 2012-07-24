@@ -157,7 +157,7 @@ $ingredients = array(
                                             'description' => 'Transition Component',
                                             'author' => 'hiromi2424',
                                             'type' => RECIPE_TYPE_COMPONENT,
-                                            'url' => 'https://raw.github.com/hiromi2424/TransitionComponent/cake2/controllers/components/transition.php',
+                                            'url' => 'https://raw.github.com/hiromi2424/TransitionComponent/cake2/Controller/Component/TransitionComponent.php',
                                             'archive' => RECIPE_ARCHIVE_FILE,
                                             ),
                      'ninja' => array('name' => 'Ninja',
