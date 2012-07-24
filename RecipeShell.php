@@ -342,8 +342,7 @@ class RecipeShell extends Shell {
         $cmd = 'mkdir -p ' . dirname($filePath);
         exec($cmd);
 
-        $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
-        exec($cmd);
+        file_put_contents(file_get_contents($url), $filePath);
     }
 
     /**
