@@ -52,14 +52,19 @@ class RecipeShell extends Shell {
             }
         }
 
-        if(!isset($ingredients)) {
-            $url = 'https://raw.github.com/k1LoW/recipe/master/ingredients.php';
-            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'ingredients.php;';
-            exec($cmd);
-            require TMP . 'ingredients.php';
+        $original = array();
+        if(isset($ingredients)) {
+            $original = $ingredients;
         }
+        $url = 'https://raw.github.com/k1LoW/recipe/master/ingredients.php';
+        $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . TMP . 'ingredients.php;';
+        exec($cmd);
+        require TMP . 'ingredients.php';
         $this->ingredients = array();
         foreach ($ingredients as $key => $value) {
+            $this->ingredients[strtolower($key)] = $value;
+        }
+        foreach ($original as $key => $value) {
             $this->ingredients[strtolower($key)] = $value;
         }
 
