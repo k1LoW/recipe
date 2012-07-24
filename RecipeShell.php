@@ -283,6 +283,7 @@ class RecipeShell extends Shell {
                     break;
                 default:
                     $this->out(__d('cake_console', 'You have made an invalid selection. Please choose a command to execute by entering Y or N.'));
+                    break;
                 }
                 $folder = new Folder();
                 if(!$folder->delete($installDir . $pluginName)) {
@@ -344,16 +345,8 @@ class RecipeShell extends Shell {
             $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Controller/Component' . DS : $this->ingredients[$key]['installDir'];
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
 
-            if (file_exists($filePath) && is_file($filePath)) {
-                $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
-                switch ($choice) {
-                case 'Y':
-                    break;
-                case 'N':
-                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
-                    return;
-                    break;
-                }
+            if (!$this->__checkFile($filePath)) {
+                return;
             }
 
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
@@ -363,16 +356,8 @@ class RecipeShell extends Shell {
             $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Model/Behavior' . DS : $this->ingredients[$key]['installDir'];
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
 
-            if (file_exists($filePath) && is_file($filePath)) {
-                $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
-                switch ($choice) {
-                case 'Y':
-                    break;
-                case 'N':
-                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
-                    return;
-                    break;
-                }
+            if (!$this->__checkFile($filePath)) {
+                return;
             }
 
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
@@ -387,22 +372,35 @@ class RecipeShell extends Shell {
             }
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
 
-            if (file_exists($filePath) && is_file($filePath)) {
-                $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
-                switch ($choice) {
-                case 'Y':
-                    break;
-                case 'N':
-                    $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
-                    return;
-                    break;
-                }
+            if (!$this->__checkFile($filePath)) {
+                return;
             }
 
             $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
             exec($cmd);
             break;
         }
+    }
+
+    /**
+     * __checkFile
+     *
+     * @param $filePath
+     */
+    private function __checkFile($filePath){
+        if (file_exists($filePath) && is_file($filePath)) {
+            $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
+            switch ($choice) {
+            case 'Y':
+                return true;
+                break;
+            case 'N':
+                $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                return false;
+                break;
+            }
+        }
+        return true;
     }
 
     public function getOptionParser() {
