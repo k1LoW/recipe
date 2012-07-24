@@ -317,23 +317,11 @@ class RecipeShell extends Shell {
             $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Controller/Component' . DS : $this->ingredients[$key]['installDir'];
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
 
-            if (!$this->__checkFile($filePath)) {
-                return;
-            }
-
-            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
-            exec($cmd);
             break;
         case RECIPE_TYPE_BEHAVIOR:
             $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Model/Behavior' . DS : $this->ingredients[$key]['installDir'];
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
 
-            if (!$this->__checkFile($filePath)) {
-                return;
-            }
-
-            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
-            exec($cmd);
             break;
         case RECIPE_TYPE_PLAIN:
         default:
@@ -344,14 +332,18 @@ class RecipeShell extends Shell {
             }
             $filePath = $installDir . $name . (preg_match('/\.php$/', $name) ? '' : '.php');
 
-            if (!$this->__checkFile($filePath)) {
-                return;
-            }
-
-            $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
-            exec($cmd);
             break;
         }
+
+        if (!$this->__checkFile($filePath)) {
+            return;
+        }
+
+        $cmd = 'mkdir -p ' . dirname($filePath);
+        exec($cmd);
+
+        $cmd = 'wget ' . $url . ' --no-check-certificate -O ' . $filePath;
+        exec($cmd);
     }
 
     /**
