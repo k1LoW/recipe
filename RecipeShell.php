@@ -342,7 +342,7 @@ class RecipeShell extends Shell {
         $cmd = 'mkdir -p ' . dirname($filePath);
         exec($cmd);
 
-        file_put_contents(file_get_contents($url), $filePath);
+        file_put_contents($filePath, file_get_contents($url));
     }
 
     /**
