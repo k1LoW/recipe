@@ -279,4 +279,12 @@ $ingredients = array(
                                         'archive' => RECIPE_ARCHIVE_TARBALL,
                                         'tarballName' => 'k1LoW-Routine-*',
                                      ),
+                     'setting' => array('name' => 'Setting',
+                                        'description' => 'Setting: Database driven setting plugin for CakePHP.',
+                                        'author' => 'k1LoW',
+                                        'type' => RECIPE_TYPE_PLUGIN,
+                                        'url' => 'https://github.com/k1LoW/Setting/tarball/master',
+                                        'archive' => RECIPE_ARCHIVE_TARBALL,
+                                        'tarballName' => 'k1LoW-Setting-*',
+                                     ),
                      );
