@@ -240,6 +240,14 @@ class RecipeShell extends Shell {
         }
         $this->hr();
         $this->out(__d('cake_console', '<comment>Installing ' . $this->ingredients[$key]['name'] . ' ...</comment>'));
+
+        if (isset($this->ingredients[$key]['require'])) {
+            $require = $this->ingredients[$key]['require'];
+            foreach ((array)$require as $value) {
+                $this->install(strtolower($value));
+            }
+        }
+
         $archive = $this->ingredients[$key]['archive'];
 
         switch ($archive) {

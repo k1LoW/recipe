@@ -294,6 +294,7 @@ $ingredients = array(
                                     'url' => 'https://github.com/k1LoW/Xls/tarball/master',
                                     'archive' => RECIPE_ARCHIVE_TARBALL,
                                     'tarballName' => 'k1LoW-Xls-*',
+                                    'require' => array('PHPExcel'),
                                      ),
                      'phpexcel' => array('name' => 'PHPExcel',
                                          'description' => 'PHPExcel',
