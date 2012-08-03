@@ -207,6 +207,7 @@ $ingredients = array(
                                                  'url' => 'https://github.com/k1LoW/DebugKitShortcut/tarball/master',
                                                  'archive' => RECIPE_ARCHIVE_TARBALL,
                                                  'tarballName' => 'k1LoW-DebugKitShortcut-*',
+                                                 'require' => array('DebugKit'),
                                                  ),
                      'mongodb' => array('name' => 'Mongodb',
                                         'description' => 'mongoDB datasource for CakePHP',
