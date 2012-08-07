@@ -322,4 +322,31 @@ $ingredients = array(
                                       'archive' => RECIPE_ARCHIVE_ZIP,
                                       'installDir' => APP . 'Vendor/',
                                       ),
+                     'fpdi' => array('name' => 'FPDI',
+                                     'description' => 'FPDI',
+                                     'author' => 'Setasign - Jan Slabon',
+                                     'type' => RECIPE_TYPE_PLAIN,
+                                     'url' => 'http://www.setasign.de/supra/kon2_dl/39034/FPDI-1.4.2.zip',
+                                     'archive' => RECIPE_ARCHIVE_ZIP,
+                                     'installDir' => APP . 'Vendor/',
+                                     'require' => array('fpdftpl'),
+                                     ),
+                     'fpdftpl' => array('name' => 'FPDF_TPL',
+                                        'description' => 'FPDF_TPL',
+                                        'author' => 'Setasign - Jan Slabon',
+                                        'type' => RECIPE_TYPE_PLAIN,
+                                        'url' => 'http://www.setasign.de/supra/kon2_dl/30471/FPDF_TPL-1.2.zip',
+                                        'archive' => RECIPE_ARCHIVE_ZIP,
+                                        'installDir' => APP . 'Vendor/',
+                                        'after' => 'moveFPDF_TPL',
+                                        ),
                      );
+
+/**
+ * moveFPDF_TPL
+ *
+ */
+public function moveFPDF_TPL(){
+    $cmd = 'mv ' . APP . 'Vendor/' . 'FPDF_TPL' . '/* ' . APP . 'Vendor/FPDI/';
+    exec($cmd);
+}
