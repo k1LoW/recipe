@@ -264,8 +264,8 @@ class RecipeShell extends Shell {
             }
         }
 
-        if($this->ingredients[$key]['after']) {
-            call_user_func_array($this->ingredients[$key]['after']);
+        if(isset($this->ingredients[$key]['after'])) {
+            call_user_func_array($this->ingredients[$key]['after'], array());
         }
 
         $this->out(__d('cake_console', '<comment>Install ' . $this->ingredients[$key]['name'] . ' complete.</comment>'));
@@ -383,7 +383,7 @@ class RecipeShell extends Shell {
             $zip->close();
             if (count(glob(TMP . $name, GLOB_ONLYDIR)) === 1) {
                 $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
-                unlink(TMP . $name);
+                rmdir(TMP . $name);
             } else {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
             }
