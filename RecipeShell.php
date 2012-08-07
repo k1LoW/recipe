@@ -360,7 +360,7 @@ class RecipeShell extends Shell {
                 return;
             }
 
-            $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName;
+            $cmd = 'cd ' . $installDir . ';wget ' . urlencode($url) . ' --no-check-certificate -O ' . $fileName;
             exec($cmd);
             $zip = new ZipArchive;
             if (!$zip->open($installDir . $fileName)) {
