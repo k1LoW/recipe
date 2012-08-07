@@ -369,7 +369,11 @@ class RecipeShell extends Shell {
             }
             $zip->extractTo(TMP . $name);
             $zip->close();
-            $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
+            if (count(glob(TMP . $name, GLOB_ONLYDIR)) === 1) {
+                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
+            } else {
+                $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
+            }
             exec($cmd);
             unlink($installDir . $fileName);
             break;
