@@ -349,7 +349,12 @@ class RecipeShell extends Shell {
             }
             $zip->extractTo(TMP . $name);
             $zip->close();
-            if (count(glob(TMP . $name . '/*')) === 1) {
+
+            if (count(glob(TMP . $name . '/*', GLOB_ONLYDIR)) === 1) {
+                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
+                exec($cmd);
+                rmdir(TMP . $name);
+            } else if (count(glob(TMP . $name . '/*')) === 1) {
                 $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir;
                 exec($cmd);
                 rmdir(TMP . $name);
@@ -382,7 +387,12 @@ class RecipeShell extends Shell {
             }
             $zip->extractTo(TMP . $name);
             $zip->close();
-            if (count(glob(TMP . $name . '/*')) === 1) {
+
+            if (count(glob(TMP . $name . '/*', GLOB_ONLYDIR)) === 1) {
+                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
+                exec($cmd);
+                rmdir(TMP . $name);
+            } else if (count(glob(TMP . $name . '/*')) === 1) {
                 $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir;
                 exec($cmd);
                 rmdir(TMP . $name);
