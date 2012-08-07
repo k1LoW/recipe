@@ -12,6 +12,7 @@ define('RECIPE_TYPE_PLAIN', 'plain');
 
 // recipe archive
 define('RECIPE_ARCHIVE_TARBALL', 'tarball');
+define('RECIPE_ARCHIVE_ZIP', 'zip');
 define('RECIPE_ARCHIVE_FILE', 'file');
 
 class RecipeShell extends Shell {
@@ -254,6 +255,9 @@ class RecipeShell extends Shell {
         case RECIPE_ARCHIVE_TARBALL:
             $this->__tarball($key);
             break;
+        case RECIPE_ARCHIVE_ZIP:
+            $this->__zip($key);
+            break;
         case RECIPE_ARCHIVE_FILE:
         default:
             $this->__file($key);
@@ -305,6 +309,66 @@ class RecipeShell extends Shell {
 
             $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName . ';tar zxvf ' . $fileName . ';mv ' . $tarballName . ' ' . $pluginName . ';';
             exec($cmd);
+            unlink($installDir . $fileName);
+            break;
+        }
+    }
+
+    /**
+     * __zip
+     *
+     */
+    private function __zip($key){
+        $name = $this->ingredients[$key]['name'];
+        $url = $this->ingredients[$key]['url'];
+        $type = $this->ingredients[$key]['type'];
+        $archive = $this->ingredients[$key]['archive'];
+
+        switch($type) {
+        case RECIPE_TYPE_PLUGIN:
+            $installDir = empty($this->ingredients[$key]['installDir']) ? APP . DS . 'Plugin' . DS : $this->ingredients[$key]['installDir'];
+            $fileName = 'temp.zip';
+            $pluginName = $name;
+            $tarballName = $this->ingredients[$key]['tarballName'];
+
+            if (!$this->__checkAndRemoveDir($installDir . $pluginName)) {
+                return;
+            }
+
+            $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName;
+            exec($cmd);
+            $zip = new ZipArchive;
+            if (!$zip->open($installDir . $fileName)) {
+                $this->out(__d('cake_console', '<error>Invalid zip archive.</error>'));
+                return;
+            }
+            $zip->extractTo($installDir . $name);
+            $zip->close();
+            unlink($installDir . $fileName);
+            break;
+        case RECIPE_TYPE_PLAIN:
+        default:
+            $installDir = empty($this->ingredients[$key]['installDir']) ? '' : $this->ingredients[$key]['installDir'];
+            if (empty($installDir)) {
+                $this->out(__d('cake_console', '<error>Invalid installDir option.</error>'));
+                return;
+            }
+            $fileName = 'temp.zip';
+            $pluginName = $name;
+
+            if (!$this->__checkAndRemoveDir($installDir . $pluginName)) {
+                return;
+            }
+
+            $cmd = 'cd ' . $installDir . ';wget ' . $url . ' --no-check-certificate -O ' . $fileName;
+            exec($cmd);
+            $zip = new ZipArchive;
+            if (!$zip->open($installDir . $fileName)) {
+                $this->out(__d('cake_console', '<error>Invalid zip archive.</error>'));
+                return;
+            }
+            $zip->extractTo($installDir . $name);
+            $zip->close();
             unlink($installDir . $fileName);
             break;
         }

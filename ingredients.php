@@ -314,4 +314,12 @@ $ingredients = array(
                                                  'archive' => RECIPE_ARCHIVE_TARBALL,
                                                  'tarballName' => 'k1LoW-controller_prefix-*',
                                                  ),
+                     'tcpdf' => array('name' => 'TCPDF',
+                                      'description' => 'PHP class for PDF',
+                                      'author' => 'Nicola Asuni',
+                                      'type' => RECIPE_TYPE_PLAIN,
+                                      'url' => 'http://downloads.sourceforge.net/project/tcpdf/tcpdf_5_9_179.zip?r=&ts=1344314734&use_mirror=jaist',
+                                      'archive' => RECIPE_ARCHIVE_ZIP,
+                                      'installDir' => APP . 'Vendor/',
+                                      ),
                      );
