@@ -382,14 +382,13 @@ class RecipeShell extends Shell {
             $zip->extractTo(TMP . $name);
             $zip->close();
             if (count(glob(TMP . $name)) === 1) {
-                mkdir($installDir . $name);
-                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
+                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir;
                 exec($cmd);
             } else {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
                 exec($cmd);
             }
-            // unlink($installDir . $fileName);
+            unlink($installDir . $fileName);
             break;
         }
     }
