@@ -329,7 +329,7 @@ $ingredients = array(
                                      'url' => 'http://www.setasign.de/supra/kon2_dl/39034/FPDI-1.4.2.zip',
                                      'archive' => RECIPE_ARCHIVE_ZIP,
                                      'installDir' => APP . 'Vendor/',
-                                     'require' => array('fpdftpl'),
+                                     //'require' => array('fpdftpl'),
                                      ),
                      'fpdftpl' => array('name' => 'fpdf_tpl.php',
                                         'description' => 'FPDF_TPL',
