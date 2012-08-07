@@ -349,13 +349,14 @@ class RecipeShell extends Shell {
             }
             $zip->extractTo(TMP . $name);
             $zip->close();
-            if (count(glob(TMP . $name, GLOB_ONLYDIR)) === 1) {
-                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
-                unlink(TMP . $nam);
+            if (count(glob(TMP . $name . '/*')) === 1) {
+                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir;
+                exec($cmd);
+                rmdir(TMP . $name);
             } else {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
+                exec($cmd);
             }
-            exec($cmd);
             unlink($installDir . $fileName);
             break;
         case RECIPE_TYPE_PLAIN:
@@ -381,9 +382,10 @@ class RecipeShell extends Shell {
             }
             $zip->extractTo(TMP . $name);
             $zip->close();
-            if (count(glob(TMP . $name . '/')) === 1) {
+            if (count(glob(TMP . $name . '/*')) === 1) {
                 $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir;
                 exec($cmd);
+                rmdir(TMP . $name);
             } else {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
                 exec($cmd);
