@@ -342,8 +342,15 @@ class RecipeShell extends Shell {
                 $this->out(__d('cake_console', '<error>Invalid zip archive.</error>'));
                 return;
             }
-            $zip->extractTo($installDir . $name);
+            $zip->extractTo(TMP . $name);
             $zip->close();
+            if (count(glob(TMP . $name, GLOB_ONLYDIR)) === 1) {
+                $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
+                unlink(TMP . $nam);
+            } else {
+                $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
+            }
+            exec($cmd);
             unlink($installDir . $fileName);
             break;
         case RECIPE_TYPE_PLAIN:
@@ -371,6 +378,7 @@ class RecipeShell extends Shell {
             $zip->close();
             if (count(glob(TMP . $name, GLOB_ONLYDIR)) === 1) {
                 $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
+                unlink(TMP . $nam);
             } else {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
             }
