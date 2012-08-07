@@ -346,7 +346,7 @@ $ingredients = array(
  * moveFPDF_TPL
  *
  */
-public function moveFPDF_TPL(){
+function moveFPDF_TPL(){
     $cmd = 'mv ' . APP . 'Vendor/' . 'FPDF_TPL' . '/* ' . APP . 'Vendor/FPDI/';
     exec($cmd);
 }
