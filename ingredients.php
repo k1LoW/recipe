@@ -331,22 +331,12 @@ $ingredients = array(
                                      'installDir' => APP . 'Vendor/',
                                      'require' => array('fpdftpl'),
                                      ),
-                     'fpdftpl' => array('name' => 'FPDF_TPL',
+                     'fpdftpl' => array('name' => 'fpdf_tpl.php',
                                         'description' => 'FPDF_TPL',
                                         'author' => 'Setasign - Jan Slabon',
                                         'type' => RECIPE_TYPE_PLAIN,
                                         'url' => 'http://www.setasign.de/supra/kon2_dl/30471/FPDF_TPL-1.2.zip',
                                         'archive' => RECIPE_ARCHIVE_ZIP,
-                                        'installDir' => APP . 'Vendor/',
-                                        'after' => 'moveFPDF_TPL',
+                                        'installDir' => APP . 'Vendor/FPDI',
                                         ),
                      );
-
-/**
- * moveFPDF_TPL
- *
- */
-function moveFPDF_TPL(){
-    $cmd = 'mv ' . APP . 'Vendor/' . 'FPDF_TPL' . '/* ' . APP . 'Vendor/FPDI/';
-    exec($cmd);
-}
