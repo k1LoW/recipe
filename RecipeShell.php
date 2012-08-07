@@ -367,8 +367,10 @@ class RecipeShell extends Shell {
                 $this->out(__d('cake_console', '<error>Invalid zip archive.</error>'));
                 return;
             }
-            $zip->extractTo($installDir . $name);
+            $zip->extractTo(TMP . $name);
             $zip->close();
+            $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
+            exec($cmd);
             unlink($installDir . $fileName);
             break;
         }
