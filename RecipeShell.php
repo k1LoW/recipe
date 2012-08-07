@@ -383,7 +383,7 @@ class RecipeShell extends Shell {
             $zip->close();
             if (count(glob(TMP . $name, GLOB_ONLYDIR)) === 1) {
                 $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
-                unlink(TMP . $nam);
+                unlink(TMP . $name);
             } else {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
             }
