@@ -388,7 +388,7 @@ class RecipeShell extends Shell {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
                 exec($cmd);
             }
-            unlink($installDir . $fileName);
+            // unlink($installDir . $fileName);
             break;
         }
     }
