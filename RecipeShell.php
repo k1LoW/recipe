@@ -384,7 +384,6 @@ class RecipeShell extends Shell {
             if (count(glob(TMP . $name, GLOB_ONLYDIR)) === 1) {
                 $cmd = 'mv ' . TMP . $name . DS . '* ' . $installDir . $name;
                 exec($cmd);
-                rmdir(TMP . $name);
             } else {
                 $cmd = 'mv ' . TMP . $name . ' ' . $installDir . $name;
                 exec($cmd);
