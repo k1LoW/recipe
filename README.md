@@ -36,5 +36,5 @@ Make follow php script `myrecipe.php`, and execute `php recipe.php -r myrecipe.p
 
 example.
 
-`php recipe.php -r https://raw.github.com/gist/1929041/536e6ac9735956d2f69af15e585be3a5907b22d0/myrecipe.php`
+`php recipe.php -r https://raw.github.com/gist/1929041/myrecipe.php`
 
