@@ -321,7 +321,7 @@ $ingredients = array(
                                     'url' => 'https://github.com/k1LoW/Pdf/tarball/master',
                                     'archive' => RECIPE_ARCHIVE_TARBALL,
                                     'tarballName' => 'k1LoW-Pdf-*',
-                                    'require' => array('TCPDF'),
+                                    'require' => array('TCPDF', 'FPDI'),
                                     ),
                      'tcpdf' => array('name' => 'TCPDF',
                                       'description' => 'PHP class for PDF',
