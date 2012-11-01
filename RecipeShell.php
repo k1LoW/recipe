@@ -434,7 +434,7 @@ class RecipeShell extends Shell {
             break;
         }
 
-        if (!$this->__checkFile($filePath)) {
+        if (!$this->__checkFile($filePath, $name)) {
             return;
         }
 
@@ -473,7 +473,7 @@ class RecipeShell extends Shell {
      *
      * @param $filePath
      */
-    private function __checkFile($filePath){
+    private function __checkFile($filePath, $packageName){
         if (file_exists($filePath) && is_file($filePath)) {
             $choice = strtoupper($this->in(__d('cake_console', $filePath . ' already exists, overwrite?'), array('Y', 'N')));
             switch ($choice) {
@@ -481,7 +481,7 @@ class RecipeShell extends Shell {
                 return true;
                 break;
             case 'N':
-                $this->out(__d('cake_console', 'Install ' . $this->ingredients[$key]['name'] . ' canceled.'));
+                $this->out(__d('cake_console', 'Install ' . $packageName . ' canceled.'));
                 return false;
                 break;
             }
