@@ -8,7 +8,8 @@
 
 example.
 
-`wget https://raw.github.com/k1LoW/recipe/master/recipe.php  --no-check-certificate -O recipe.php && php recipe.php && rm recipe.php`
+    wget https://raw.github.com/k1LoW/recipe/master/recipe.php  --no-check-certificate -O recipe.php && \
+    php recipe.php && rm recipe.php
 
 ## Use Your Recipe ##
 
