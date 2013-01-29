@@ -356,4 +356,12 @@ $ingredients = array(
                                      'archive' => RECIPE_ARCHIVE_TARBALL,
                                      'tarballName' => 'k1LoW-Yav-*',
                                      ),
+                     'debugmemo' => array('name' => 'DebugMemo',
+                                        'description' => 'DebugMemo: Memo tool for development / CakePHP plugin',
+                                        'author' => 'k1LoW',
+                                        'type' => RECIPE_TYPE_PLUGIN,
+                                        'url' => 'https://github.com/k1LoW/DebugMemo/tarball/master',
+                                        'archive' => RECIPE_ARCHIVE_TARBALL,
+                                        'tarballName' => 'k1LoW-DebugMemo-*',
+                                        ),
                      );
