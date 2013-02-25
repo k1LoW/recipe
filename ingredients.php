@@ -410,7 +410,7 @@ $ingredients = array(
         'tarballName' => 'k1LoW-DebugMemo-*',
     ),
     'phpmarkdownextra' => array(
-        'name' => 'PHP Markdown Extra',
+        'name' => 'markdown',
         'description' => 'PHP Markdown Extra',
         'author' => 'Michel Fortin',
         'type' => RECIPE_TYPE_PLAIN,
