@@ -409,4 +409,23 @@ $ingredients = array(
         'archive' => RECIPE_ARCHIVE_TARBALL,
         'tarballName' => 'k1LoW-DebugMemo-*',
     ),
+    'phpmarkdownextra' => array(
+        'name' => 'PHP Markdown Extra',
+        'description' => 'PHP Markdown Extra',
+        'author' => 'Michel Fortin',
+        'type' => RECIPE_TYPE_PLAIN,
+        'url' => 'https://raw.github.com/michelf/php-markdown/extra/markdown.php',
+        'archive' => RECIPE_ARCHIVE_FILE,
+        'installDir' => APP . 'Vendor/',
+    ),
+    'yamd' => array(
+        'name' => 'Yamd',
+        'description' => 'Yer Another Markdown plugin for CakePHP',
+        'author' => 'k1LoW',
+        'type' => RECIPE_TYPE_PLUGIN,
+        'url' => 'https://github.com/k1LoW/Yamd/tarball/master',
+        'archive' => RECIPE_ARCHIVE_TARBALL,
+        'tarballName' => 'k1LoW-Yamd-*',
+        'require' => array('PHPMarkdownExtra'),
+    ),
 );
