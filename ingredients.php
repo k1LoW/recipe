@@ -173,12 +173,13 @@ $ingredients = array(
         'tarballName' => 'hiromi2424-Collectionable-*',
     ),
     'transition' =>  array(
-        'name' => 'TransitionComponent',
+        'name' => 'Transition',
         'description' => 'Transition Component',
         'author' => 'hiromi2424',
-        'type' => RECIPE_TYPE_COMPONENT,
-        'url' => 'https://raw.github.com/hiromi2424/TransitionComponent/cake2/Controller/Component/TransitionComponent.php',
-        'archive' => RECIPE_ARCHIVE_FILE,
+        'type' => RECIPE_TYPE_PLUGIN,
+        'url' => 'https://github.com/hiromi2424/TransitionComponent/tarball/cake2',
+        'archive' => RECIPE_ARCHIVE_TARBALL,
+        'tarballName' => 'hiromi2424-TransitionComponent-*',
     ),
     'ninja' => array(
         'name' => 'Ninja',
