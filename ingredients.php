@@ -369,7 +369,7 @@ $ingredients = array(
         'description' => 'PHP class for PDF',
         'author' => 'Nicola Asuni',
         'type' => RECIPE_TYPE_PLAIN,
-        'url' => 'http://downloads.sourceforge.net/project/tcpdf/tcpdf_5_9_202.zip',
+        'url' => 'http://downloads.sourceforge.net/project/tcpdf/tcpdf_6_0_020.zip',
         'archive' => RECIPE_ARCHIVE_ZIP,
         'installDir' => APP . 'Vendor/',
     ),
