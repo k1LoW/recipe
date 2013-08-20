@@ -72,15 +72,15 @@ $ingredients = array(
         'archive' => RECIPE_ARCHIVE_TARBALL,
         'tarballName' => 'ichikaway-AutoAppBuild-*',
     ),
-    'twitterbootstrap' => array(
-        'name' => 'TwitterBootstrap',
-        'description' => 'Cake plus is cakephp plugin and provides some functions for CakePHP',
+    'boostcake' => array(
+        'name' => 'BoostCake',
+        'description' => 'This is a plugin for CakePHP using Bootstrap',
         'author' => 'slywalker',
         'type' => RECIPE_TYPE_PLUGIN,
-        'url' => 'https://github.com/slywalker/TwitterBootstrap/tarball/master',
-        'pluginName' => 'TwitterBootstrap',
+        'url' => 'https://github.com/slywalker/cakephp-plugin-boost_cake/tarball/master',
+        'pluginName' => 'BoostCake',
         'archive' => RECIPE_ARCHIVE_TARBALL,
-        'tarballName' => 'slywalker-TwitterBootstrap-*',
+        'tarballName' => 'slywalker-cakephp-plugin-boost_cake-*',
     ),
     'filebinder' => array(
         'name' => 'Filebinder',
